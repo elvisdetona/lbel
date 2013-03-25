@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/screen.css">
+    <title>Demaquilantes L'BEL</title>
+</head>
+<body>
+    <div class="header" role="banner">
+        <h1><img src="img/header.jpg" alt="Demaquilantes" /></h1>
+    </div>
+    <div role="main" class="content">
+        <div class="TheSuperSimpleSlider">
+            <div class="TheSuperSimpleSlider-slideshow">
+                
+                <img src="img/demaquilante.png" alt="Demaquilante Refrescante" class="TheSuperSimpleSlider-figure" />
+                <div class="description">
+                    <h2>Cuidar da pele começa com uma boa limpeza.</h2>
+                    <p>Com textura refrescante, o Demaquilante Creme Gel te auxilia a dar adeus à maquiagem proporcionando suavidade e maciez à pele.</p>
+                    <h3>Demaquilante Refrescante</h3>
+                    <p>para Área do Contorno dos Olhos e para o Rosto em Creme Gel.</p>
+                </div>
+
+                <img src="img/demaquilante-hidratante.png" alt="Loção Demaquilante Hidratante" class="TheSuperSimpleSlider-figure" />
+                <div class="description">
+                    <h2>Duas texturas, um rosto lindo e saudável.</h2>
+                    <p>O Demaquilante Bifásico traz duas texturas que, misturadas, eliminam a maquiagem mais pesada, sem deixar resíduos. Ideal para todos os tipos de pele!</p>
+                    <h3>Loção Demaquilante Hidratante</h3>
+                    <p>para Rosto e Área de Contorno dos olhos.</p>
+                </div>
+
+            </div>
+
+
+            <div class="TheSuperSimpleSlider-navegacao" role="navigation">
+                <ul>
+                    <li><a href="#1">1</a></li>
+                    <li><a href="#2">2</a></li>
+                </ul>
+            </div>
+
+            <a href="#prev" class="TheSuperSimpleSlider-arrow TheSuperSimpleSlider-arrow-prev">prev</a>
+            <a href="#next" class="TheSuperSimpleSlider-arrow TheSuperSimpleSlider-arrow-next">next</a>
+
+        </div>
+
+    </div>
+    <div class="footer" role="contentinfo">
+       <h2><img src="img/lbel.png" alt="L'BEL" /></h2> 
+    </div>
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/theSuperSimpleSlider.js" type="text/javascript"></script>
+
+    <!-- scripts -->
+    <script type="text/javascript">
+        jQuery.fn.ready(function(){
+
+            // jQuery as $
+            (function($){
+
+                $TheSuperSimpleSlider = $('.TheSuperSimpleSlider');
+                $TheSuperSimpleSlider.theSuperSimpleSlider({ 'slideshow': '> .TheSuperSimpleSlider-slideshow:eq(0)'});
+
+                // Nav 1
+                $navs = $TheSuperSimpleSlider.find('.TheSuperSimpleSlider-navegacao:eq(0) a');
+                $navs.on('click.TheSuperSimpleSlider', {'Slider': $TheSuperSimpleSlider, 'Navs': $navs }, moveSlider);
+                $navs.eq(0).trigger('click.TheSuperSimpleSlider');
+
+                // Nav 2
+                $TheSuperSimpleSlider
+                .find('.TheSuperSimpleSlider-arrow')
+                .on('click.TheSuperSimpleSliderNextPrev', {'Slider': $TheSuperSimpleSlider, 'Navs': $navs }, prevNext );
+
+            })(jQuery);
+
+        });
+        function moveSlider(ev)
+        {
+            ev.data.Navs.removeClass('TheSuperSimpleSlider-ativo');
+            $(this).addClass('TheSuperSimpleSlider-ativo');
+            ev.preventDefault();
+            ev.data.Slider.theSuperSimpleSlider('move', parseInt(this.hash.replace('#','')));
+        }
+        function prevNext(ev)
+        {
+            ev.preventDefault();
+            var total = ev.data.Slider.theSuperSimpleSlider('getOpt','total');
+            var curr = ev.data.Slider.theSuperSimpleSlider('getOpt','humanPos');
+            (this.hash == '#next') ? curr++ : curr--;
+            curr = (curr > total) ? 1 : curr;
+            curr = (curr < 1) ? total : curr;
+            ev.data.Navs.eq(curr-1).trigger('click.TheSuperSimpleSlider');
+        }
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
 lbel
 ====
 
-lbel - minisite com slider
+Minisite com slider
